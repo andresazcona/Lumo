@@ -1,0 +1,40 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Photos storage path
+    match /photos/{allPaths=**} {
+      // Anyone can read/download photos (public access)
+      allow read: if true;
+      
+      // Only authenticated users can upload photos
+      // Maximum file size: 10 MB
+      // Only image files allowed
+      allow create: if request.auth != null &&
+        request.resource.size < 10 * 1024 * 1024 &&
+        request.resource.contentType.matches('image/.*');
+      
+      // **Prohibit deletes - once uploaded, photos cannot be deleted**
+      allow delete: if false;
+      
+      // **Prohibit updates - photos cannot be modified**
+      allow update: if false;
+    }
+    
+    // Avatar storage path
+    match /avatars/{userId}/{allPaths=**} {
+      // Anyone can read avatars (public access)
+      allow read: if true;
+      
+      // Only the user can upload/update their own avatar
+      // Maximum file size: 5 MB
+      // Only image files allowed
+      allow create, update: if request.auth != null &&
+        request.auth.uid == userId &&
+        request.resource.size < 5 * 1024 * 1024 &&
+        request.resource.contentType.matches('image/.*');
+      
+      // Users can delete their old avatars
+      allow delete: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

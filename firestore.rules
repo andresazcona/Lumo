@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Photos collection
+    match /photos/{photoId} {
+      // Anyone can read photos (public feed)
+      allow read: if true;
+      
+      // Only authenticated users can create photos
+      // Ensure the owner matches the authenticated user
+      // Ensure createdAt is set to server timestamp
+      allow create: if request.auth != null &&
+        request.resource.data.ownerUid == request.auth.uid &&
+        request.resource.data.createdAt == request.time;
+      
+      // **Prohibit updates and deletes - photos cannot be modified or deleted**
+      allow update, delete: if false;
+    }
+    
+    // Users collection (optional, for future use)
+    match /users/{uid} {
+      // Anyone can read user profiles
+      allow read: if true;
+      
+      // Only the owner can write their own profile
+      allow write: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}
