@@ -15,8 +15,8 @@ export const UploadFAB = ({ onPhotoUploaded }: UploadFABProps) => {
       <button
         className="upload-fab"
         onClick={() => setIsModalOpen(true)}
-        aria-label="Subir foto"
-        title="Subir foto"
+        aria-label="Subir imagen"
+        title="Subir imagen"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -37,6 +37,7 @@ export const UploadFAB = ({ onPhotoUploaded }: UploadFABProps) => {
             d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"
           />
         </svg>
+        <span className="upload-text">Subir imagen</span>
       </button>
 
       <CameraModal
