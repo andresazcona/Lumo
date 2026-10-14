@@ -9,7 +9,16 @@ A shared photo album for an event. Everyone signs in, posts photos from their ph
 ![License](https://img.shields.io/badge/license-MIT-blue)
 [![CI](https://github.com/andresazcona/Lumo/actions/workflows/ci.yml/badge.svg)](https://github.com/andresazcona/Lumo/actions/workflows/ci.yml)
 
-<p align="center"><img src="docs/login-mobile.png" alt="Lumo sign-in screen" width="300"></p>
+![The feed on desktop](docs/feed-desktop.png)
+
+<p align="center">
+  <img src="docs/login-mobile.png" alt="Sign-in" width="23%">
+  <img src="docs/signup-mobile.png" alt="Create account" width="23%">
+  <img src="docs/feed-mobile.png" alt="Feed on a phone" width="23%">
+  <img src="docs/upload-mobile.png" alt="Upload preview with the write-once warning" width="23%">
+</p>
+
+> Screenshots use generated placeholder images, not real photos.
 
 > The interface is in Spanish.
 
