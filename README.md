@@ -18,8 +18,6 @@ A shared photo album for an event. Everyone signs in, posts photos from their ph
   <img src="docs/upload-mobile.png" alt="Upload preview with the write-once warning" width="23%">
 </p>
 
-> Screenshots use generated placeholder images, not real photos.
-
 > The interface is in Spanish.
 
 ## What it does
