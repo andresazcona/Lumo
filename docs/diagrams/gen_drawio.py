@@ -169,7 +169,7 @@ def upload_flow() -> Page:
         40, 300, 600, 160,
     )
     p.note(
-        "<b>All of this is tested.</b> tests/rules runs 18 cases against the real Firebase emulators "
+        "<b>All of this is tested.</b> tests/rules runs 19 cases against the real Firebase emulators "
         "on every push: anonymous access, other people's folders, wrong file types, 10 MB limit, "
         "back-dated records, edits and deletes.",
         1300, 300, 330, 160,

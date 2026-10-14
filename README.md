@@ -68,7 +68,7 @@ Photos are visible to every signed-in user of that deployment. If you need per-a
 
 ```bash
 npm test                 # configuration resolution (build env, runtime config, emulators)
-npm run test:rules       # 18 security-rules cases against the real emulators (needs Java 17+)
+npm run test:rules       # 19 security-rules cases against the real emulators (needs Java 17+)
 npm run lint && npm run build
 ```
 
