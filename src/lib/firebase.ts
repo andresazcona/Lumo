@@ -1,20 +1,30 @@
-// Firebase configuration and initialization
+// Firebase initialisation. See ./config.ts for where the settings come from.
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
+import { connectAuthEmulator, getAuth } from 'firebase/auth';
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
+import { connectStorageEmulator, getStorage } from 'firebase/storage';
+import { resolveConfig, type RuntimeConfig } from './config';
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-};
+declare global {
+  interface Window {
+    __LUMO_CONFIG__?: RuntimeConfig;
+  }
+}
 
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+// Must match the ports in firebase.json
+const EMULATOR_PORTS = { auth: 9099, firestore: 8088, storage: 9199 };
+
+const { firebase, emulators } = resolveConfig(window.__LUMO_CONFIG__, import.meta.env);
+
+export const app = initializeApp(firebase);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+if (emulators) {
+  connectAuthEmulator(auth, `http://${emulators.host}:${EMULATOR_PORTS.auth}`, {
+    disableWarnings: true,
+  });
+  connectFirestoreEmulator(db, emulators.host, EMULATOR_PORTS.firestore);
+  connectStorageEmulator(storage, emulators.host, EMULATOR_PORTS.storage);
+}
