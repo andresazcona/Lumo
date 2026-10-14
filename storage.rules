@@ -5,9 +5,12 @@ service firebase.storage {
     match /photos/{userId}/{allPaths=**} {
       allow read: if request.auth != null;
 
-      // You can only upload into your own folder: an image, under 10 MB.
+      // You can only upload into your own folder: an image, under 10 MB, and only to a path
+      // where nothing exists yet. (`resource == null` is what makes it write-once: some
+      // implementations classify an overwrite as a create.)
       allow create: if request.auth != null &&
         request.auth.uid == userId &&
+        resource == null &&
         request.resource.size < 10 * 1024 * 1024 &&
         request.resource.contentType.matches('image/.*');
 
