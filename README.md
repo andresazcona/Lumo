@@ -9,6 +9,8 @@ A shared photo album for an event. Everyone signs in, posts photos from their ph
 ![License](https://img.shields.io/badge/license-MIT-blue)
 [![CI](https://github.com/andresazcona/Lumo/actions/workflows/ci.yml/badge.svg)](https://github.com/andresazcona/Lumo/actions/workflows/ci.yml)
 
+<p align="center"><img src="docs/demo.gif" alt="Sign up, browse the feed and post a photo" width="300"></p>
+
 ![The feed on desktop](docs/feed-desktop.png)
 
 <p align="center">
