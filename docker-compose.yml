@@ -1,0 +1,23 @@
+# Run Lumo entirely on your machine, with no Firebase project and nothing leaving it:
+#   docker compose up --build      ->   http://localhost:3000
+# Accounts and photos live in the emulators' memory and disappear when you stop them.
+services:
+  emulators:
+    build:
+      context: .
+      dockerfile: docker/emulators/Dockerfile
+    ports:
+      - "127.0.0.1:9099:9099" # Auth
+      - "127.0.0.1:8088:8088" # Firestore
+      - "127.0.0.1:9199:9199" # Storage
+
+  web:
+    build: .
+    environment:
+      USE_EMULATORS: "true"
+      EMULATOR_HOST: localhost
+    ports:
+      - "127.0.0.1:3000:8080"
+    depends_on:
+      emulators:
+        condition: service_healthy
