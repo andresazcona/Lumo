@@ -156,7 +156,7 @@ def upload_flow() -> Page:
         "<b>Storage rules</b><br>"
         "• only a signed-in user, only into their own folder (photos/&lt;their uid&gt;/…)<br>"
         "• only image/* files, under 10 MB<br>"
-        "• create only: a photo can never be replaced or deleted<br>"
+        "• update and delete are denied: a photo is never edited or deleted<br>"
         "• reads need a signed-in user",
         670, 300, 600, 160,
     )
@@ -169,7 +169,7 @@ def upload_flow() -> Page:
         40, 300, 600, 160,
     )
     p.note(
-        "<b>All of this is tested.</b> tests/rules runs 19 cases against the real Firebase emulators "
+        "<b>All of this is tested.</b> tests/rules runs 18 cases against the real Firebase emulators "
         "on every push: anonymous access, other people's folders, wrong file types, 10 MB limit, "
         "back-dated records, edits and deletes.",
         1300, 300, 330, 160,

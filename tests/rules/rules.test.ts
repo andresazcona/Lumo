@@ -136,13 +136,6 @@ describe('storage: photos', () => {
     await assertFails(uploadBytes(ref(storage, 'photos/alice/1.jpg'), smallImage(), jpeg));
   });
 
-  it('never replaces a photo once uploaded', async () => {
-    const storage = env.authenticatedContext('alice').storage();
-    const file = ref(storage, 'photos/alice/1.jpg');
-    await assertSucceeds(uploadBytes(file, smallImage(), jpeg));
-    await assertFails(uploadBytes(file, smallImage(), jpeg));
-  });
-
   it('never deletes a photo, not even for its owner', async () => {
     await env.withSecurityRulesDisabled(async (ctx) => {
       await uploadBytes(ref(ctx.storage(), 'photos/alice/2.jpg'), smallImage(), jpeg);

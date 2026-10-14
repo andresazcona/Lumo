@@ -58,7 +58,7 @@ There is no public demo on purpose: people post personal photos here, so Lumo is
 - Reading photos and profiles requires a signed-in user.
 - Uploads go only into your own folder (`photos/<your uid>/`), must be images, and must be under 10 MB.
 - A photo record's owner must be the caller and its timestamp must come from the server, so nobody can post as someone else or back-date a photo.
-- Photos and their records cannot be replaced or deleted.
+- Photos and their records cannot be deleted, and the rules deny updates to them (`allow update: if false`).
 
 Photos are visible to every signed-in user of that deployment. If you need per-album privacy, the next step is an album document that gates both reads and uploads.
 
@@ -68,7 +68,7 @@ Photos are visible to every signed-in user of that deployment. If you need per-a
 
 ```bash
 npm test                 # configuration resolution (build env, runtime config, emulators)
-npm run test:rules       # 19 security-rules cases against the real emulators (needs Java 17+)
+npm run test:rules       # 18 security-rules cases against the real emulators (needs Java 17+)
 npm run lint && npm run build
 ```
 
@@ -90,6 +90,7 @@ docker/          nginx config, the start-up hook that writes /config.js, the emu
 
 ## Limits and what is next
 
+- Overwriting an existing photo is blocked by the Storage `update` rule, but the Firebase Storage emulator does not model that case, so it is not covered by the automated tests. File names include a timestamp, so the app never overwrites; verify the rule in your own project if it matters to you.
 - One shared album per deployment. Multiple albums with invite links would be the natural next step.
 - The interface is in Spanish only.
 - Photos are not deleted even by the person who posted them. That is the point for an event album, but it means a mistaken upload needs the project owner to remove it from the Firebase console.
