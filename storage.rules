@@ -1,7 +1,7 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    // Photos live in photos/<uid>/<file>. Write once, never replaced or deleted.
+    // Photos live in photos/<uid>/<file>. Write once: updates and deletes are denied.
     match /photos/{userId}/{allPaths=**} {
       allow read: if request.auth != null;
 
